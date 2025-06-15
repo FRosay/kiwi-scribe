@@ -4,9 +4,13 @@
 2. [Plugins utiles](#plugins-utiles)\
     2.1. [Configurer ESLint sur VSCode](#configurer-eslint-sur-vscode)
 3. [Architecture approximative](#architecture-approximative)
-4. [Git Workflow](#git-workflow)
-    4.1 [Introduction](#introduction)
-    4.2 [Pendant le développement](#pendant-le-développement)
+4. [Git Workflow](#git-workflow) \
+    4.1. [Introduction](#introduction) \
+    4.2. [Pendant le développement](#pendant-le-développement) \
+&nbsp;&nbsp;&nbsp;&nbsp;4.2.1 [Principes généraux](#principes-généraux) \
+&nbsp;&nbsp;&nbsp;&nbsp;4.2.2 [Le rebase de branche](#le-rebase-de-branche) \
+&nbsp;&nbsp;&nbsp;&nbsp;4.2.3 [To squash or not to squash](#to-squash-or-not-to-squash) \
+&nbsp;&nbsp;&nbsp;&nbsp;4.2.4 [Exemple pas à pas](#exemple-pas-à-pas)
 
 ## Lancer l'application
 
@@ -56,8 +60,20 @@ Concrètement, le projet s'articule principalement autour des branches `main` et
 
 ### Pendant le développement
 
-Le développement s'effectue sur des branches de feature (ou de fix) qui sont tirées depuis `develop`. \
+#### Principes généraux
+
+Le développement s'effectue sur des branches de feature (ou de fix) qui sont tirées depuis `develop`.
+
 Par principe, le nom d'une branche de feature devra être préfixé de `feat/` ou `feature/`, tandis que le nom d'une branche de correction d'anomalie sera préfixé de `fix/`. Une branche autre (mise à jour de configuration, par exemple) pourra être préfixée de `chore/`.
+
+Une fois finalisée et testée, les branches de feature sont fusionnées (merge) sur `develop`.
+Après cette opération, il ne faut pas oublier de supprimer (au moins sur le repo distant) les branches qui ont été fusionnées.
+
+#### Le rebase de branche
+
+> /!\\<div style="text-align: center">/!\\</div> \
+> Le `rebase` n'est autorisé **que** sur **ses propres branches de feature** et **jamais** sur une branche partagée comme `develop` ou `main`. \
+> /!\\
 
 Il est fortement conseillé de `rebase` sa branche depuis develop avant de merge, de la façon suivante :
 
@@ -74,4 +90,30 @@ Ce `rebase` permet de mettre à jour sa branche des modifications qui ont potent
 
 Si un `rebase` est trop complexe ou trop long (par exemple à cause du nombre de conflits), un `git merge` suffit.
 
-Enfin, ne pas oublier de supprimer (au moins sur le repo distant) les branches qui ont été fusionnées (merge).
+#### To squash or not to squash
+
+Lors d'un `merge`, l'option `--squash` permet de fusionner tous les commits en un seul (+ un 'commit de merge' donc techniquement deux).
+
+Par principe, il vaut mieux éviter le squash pour conserver un historique git complet. Toutefois, si une branche de feature contient trop de commits redondants ou inintéressants ("feature OK", "feature OK final" et "feature OK final final" par exemple), alors elle peut être "squashée".
+
+Toujours par principe, on préférera tout de même au squash le rebase interactif (`rebase -i`)
+
+#### Exemple pas à pas
+
+Exemple de développement d'une feature basique via le prisme des commandes `git` qui seront jouées lors du processus :
+
+```bash
+git switch develop # On se place sur develop si on y est pas déjà
+git pull # On récupère les derniers commits s'il y en a
+git switch -c feature/Ma_feature # On crée sa branche de développement
+# Bla bla on développe
+git add -A # On ajoute tout ce qu'on a développé
+git commit -m "feature/Ma_feature" # On commit ; les deux dernières étapes peuvent être répétées pour découper la feature en plusieurs commits selon sa logique, auquel cas il faudra 'git add' certains fichiers spécifiques à chaque fois
+git switch develop # On revient sur develop pour mettre à jour la branche locale
+git pull # On met à jour
+git switch feature/Ma_feature # On revient sur notre branche ; si on y était juste avant de passer sur develop, on peut aussi écrire 'git switch -'
+git rebase develop # Si trop complexe, utiliser 'git merge develop' à la place
+git push --force-with-lease # Uniquement en cas de rebase et après être arrivé au bout des 'git rebase --continue' ; en cas de merge, il faut 'git commit' pour finir le merge après avoir réglé les conflits
+git switch develop
+git merge feature/Ma_feature # Pour rapatrier les développements sur develop
+```
