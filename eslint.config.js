@@ -24,7 +24,7 @@ export default defineConfig([globalIgnores(["projects/**/*"]), {
 
     extends: fixupConfigRules(compat.extends(
         "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-type-checked",
         "plugin:@angular-eslint/recommended",
         "plugin:@angular-eslint/template/process-inline-templates",
         "plugin:import/warnings",
@@ -43,6 +43,8 @@ export default defineConfig([globalIgnores(["projects/**/*"]), {
         sourceType: "script",
 
         parserOptions: {
+            projectService: true,
+            tsconfigRootDir: import.meta.dirname,
             project: ["./tsconfig.eslint.json"],
         },
     },
@@ -212,7 +214,6 @@ export default defineConfig([globalIgnores(["projects/**/*"]), {
         "@angular-eslint/template/cyclomatic-complexity": "error",
         "@angular-eslint/template/elements-content": "error",
         "@angular-eslint/template/eqeqeq": "error",
-        "@angular-eslint/template/i18n": "error",
         "@angular-eslint/template/interactive-supports-focus": "error",
         "@angular-eslint/template/label-has-associated-control": "error",
         "@angular-eslint/template/mouse-events-have-key-events": "error",
