@@ -1,0 +1,11 @@
+@use 'variables' as v;
+
+.linkButton {
+  text-align: center;
+  text-decoration: none;
+  color: black;
+
+  background-color: v.$blue-dark;
+  border-radius: 10px;
+  padding: 1em 2em;
+}

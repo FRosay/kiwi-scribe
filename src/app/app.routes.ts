@@ -1,3 +1,17 @@
 import { Routes } from '@angular/router';
 
-export const routes: Routes = [];
+import { Home } from './pages/home/home';
+import { Profile } from './pages/profile/profile';
+
+export const routes: Routes = [
+  {
+    path: '',
+    component: Home,
+    title: 'Kiwi-Scribe'
+  },
+  {
+    path: 'profile',
+    component: Profile,
+    title: 'Votre Profil'
+  }
+];

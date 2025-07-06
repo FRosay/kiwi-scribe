@@ -1,0 +1,11 @@
+@use 'variables' as v;
+
+nav {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+
+  border-radius: 5px;  
+  padding: 2%;
+  width: 70%;
+}
