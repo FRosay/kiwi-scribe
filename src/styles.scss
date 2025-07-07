@@ -3,5 +3,14 @@
 
 body {
   background: #EEAECA;
-  background: linear-gradient(125deg, rgba(238, 174, 202, 1) 0%, rgba(224, 184, 96, 1) 100%);
+  background: linear-gradient(90deg, rgba(238, 174, 202, 1) 0%, rgba(224, 184, 96, 1) 100%);
+}
+
+html, body, app-root {
+  height: 100%;
+  width: 100%;
+
+  app-root {
+    display: inline-block;
+  }
 }
