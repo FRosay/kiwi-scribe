@@ -1,2 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-@import './reset';
+@use 'reset';
+
+body {
+  background: #EEAECA;
+  background: linear-gradient(125deg, rgba(238, 174, 202, 1) 0%, rgba(224, 184, 96, 1) 100%);
+}

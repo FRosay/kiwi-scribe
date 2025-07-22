@@ -1,0 +1,12 @@
+@use 'variables' as v;
+
+#navbar {
+  margin: 50px;
+}
+
+app-navbar {
+  display: flex;
+  justify-content: center;
+  background-color: v.$blue-light;
+  border-radius: 0 0 150px 150px;
+}

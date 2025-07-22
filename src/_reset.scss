@@ -54,6 +54,14 @@ button, input, label {
   line-height: 1.1;
 }
 
-#root, #__next {
+#root, #__next, app-root {
   isolation: isolate;
+}
+
+a, input[type=submit] {
+    cursor: pointer;
+}
+
+button {
+    cursor: pointer;
 }
